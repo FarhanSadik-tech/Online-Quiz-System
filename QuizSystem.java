@@ -97,7 +97,7 @@ class QuizTaker extends User {
         quiz.endQuiz();
         Result result = new Result(UUID.randomUUID().toString(), score, new Date(), quiz);
         results.add(result);
-        System.out.println("✅ Quiz completed! Your score: " + score);
+        System.out.println(" Quiz completed! Your score: " + score);
     }
 
     public List<Result> getResults() {
@@ -121,11 +121,11 @@ class Quiz {
     }
 
     public void startQuiz() {
-        System.out.println("\n📢 Starting Quiz: " + title);
+        System.out.println("\n Starting Quiz: " + title);
     }
 
     public void endQuiz() {
-        System.out.println("📢 Ending Quiz: " + title);
+        System.out.println(" Ending Quiz: " + title);
     }
 }
 
@@ -277,7 +277,7 @@ public class QuizSystem {
                             sc.nextLine();
                             taker.takeQuiz(quizzes.get(index), sc);
                         } else {
-                            System.out.println("⚠ No quizzes available.");
+                            System.out.println(" No quizzes available.");
                         }
                     } else if (userChoice == 2) {
                         List<Result> results = taker.getResults();
