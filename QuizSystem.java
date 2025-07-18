@@ -59,7 +59,7 @@ class Admin extends User {
     public void deleteQuiz(List<Quiz> quizzes, int index) {
         quizzes.get(index).isActive = false;
         quizzes.remove(index);
-        System.out.println("🗑️ Quiz Deleted.");
+        System.out.println("🗑Quiz Deleted.");
     }
 
     public void viewAllResults(List<QuizTaker> takers) {
@@ -171,7 +171,11 @@ public class QuizSystem {
         Admin admin = new Admin("admin01", "admin", "admin123");
 
         while (true) {
-            System.out.println("\n Welcome to our online Quiz System");
+            System.out.println("──────────────────────────────────────────────");
+            System.out.println("│                                            │");
+            System.out.println("│         ▒▒▒ ONLINE QUIZ SYSTEM ▒▒▒         │");
+            System.out.println("│                                            │");
+            System.out.println("──────────────────────────────────────────────");
             System.out.println("1. Admin Login\n2. User Login\n0. Exit");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -187,7 +191,7 @@ public class QuizSystem {
                 if (inputAdminId.equals(admin.getAdminId()) && inputUsername.equals(admin.getUsername()) && inputPassword.equals(admin.getPassword())) {
                     admin.login();
                     while (true) {
-                        System.out.println("\n Admin Panel");
+                        System.out.println("\n#Admin Panel");
                         System.out.println("1. Create Quiz\n2. Delete Quiz\n3. View All Results\n0. Logout");
                         int adminChoice = sc.nextInt();
                         sc.nextLine();
@@ -226,7 +230,7 @@ public class QuizSystem {
                                 admin.addQuestion(quiz, question);
                             }
                             quizzes.add(quiz);
-                            System.out.println(" Quiz created successfully.");
+                            System.out.println("Quiz created successfully.");
                         } else if (adminChoice == 2) {
                             if (!quizzes.isEmpty()) {
                                 for (int i = 0; i < quizzes.size(); i++) {
@@ -237,7 +241,7 @@ public class QuizSystem {
                                 sc.nextLine();
                                 admin.deleteQuiz(quizzes, index);
                             } else {
-                                System.out.println("⚠ No quizzes to delete.");
+                                System.out.println("No quizzes to delete.");
                             }
                         } else if (adminChoice == 3) {
                             admin.viewAllResults(takers);
@@ -247,7 +251,7 @@ public class QuizSystem {
                         }
                     }
                 } else {
-                    System.out.println(" Invalid admin credentials.");
+                    System.out.println("Invalid admin credentials.");
                 }
             } else if (choice == 2) {
                 System.out.print("Enter User ID: ");
@@ -262,7 +266,7 @@ public class QuizSystem {
                 takers.add(taker);
 
                 while (true) {
-                    System.out.println("\n User Panel");
+                    System.out.println("\n#User Panel");
                     System.out.println("1. Take Quiz\n2. View Results\n0. Logout");
                     int userChoice = sc.nextInt();
                     sc.nextLine();
@@ -277,7 +281,7 @@ public class QuizSystem {
                             sc.nextLine();
                             taker.takeQuiz(quizzes.get(index), sc);
                         } else {
-                            System.out.println(" No quizzes available.");
+                            System.out.println("No quizzes available.");
                         }
                     } else if (userChoice == 2) {
                         List<Result> results = taker.getResults();
@@ -286,7 +290,7 @@ public class QuizSystem {
                                 System.out.println(result.quiz.title + " | Score: " + result.score);
                             }
                         } else {
-                            System.out.println(" No results available.");
+                            System.out.println("No results available.");
                         }
                     } else if (userChoice == 0) {
                         taker.logout();
@@ -294,7 +298,7 @@ public class QuizSystem {
                     }
                 }
             } else if (choice == 0) {
-                System.out.println(" Exiting Quiz System.");
+                System.out.println("Exiting Quiz System.");
                 break;
             }
         }
