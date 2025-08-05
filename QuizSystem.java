@@ -59,13 +59,14 @@ class Admin extends User {
     public void deleteQuiz(List<Quiz> quizzes, int index) {
         quizzes.get(index).isActive = false;
         quizzes.remove(index);
-        System.out.println("🗑Quiz Deleted.");
+        System.out.println("🗑 Quiz Deleted.");
     }
 
     public void viewAllResults(List<QuizTaker> takers) {
         for (QuizTaker taker : takers) {
             for (Result result : taker.getResults()) {
-                System.out.println("QuizTaker: " + taker.getUsername() + " | ID: " + taker.getUserId() + " | Quiz: " + result.quiz.title + " | Score: " + result.score);
+                System.out.println("QuizTaker: " + taker.getUsername() + " | ID: " + taker.getUserId() +
+                        " | Quiz: " + result.quiz.title + " | Score: " + result.score);
             }
         }
     }
@@ -87,7 +88,7 @@ class QuizTaker extends User {
             for (int i = 0; i < options.size(); i++) {
                 System.out.println((i + 1) + ". " + options.get(i));
             }
-            System.out.print("Your answer: ");
+            System.out.print("Your answer ( Option ): ");
             int answer = sc.nextInt();
             sc.nextLine();
             if (question.checkAnswer(options.get(answer - 1))) {
@@ -121,11 +122,11 @@ class Quiz {
     }
 
     public void startQuiz() {
-        System.out.println("\n Starting Quiz: " + title);
+        System.out.println("\nStarting Quiz: " + title);
     }
 
     public void endQuiz() {
-        System.out.println(" Ending Quiz: " + title);
+        System.out.println("Ending Quiz: " + title);
     }
 }
 
@@ -163,6 +164,8 @@ class Result {
     }
 }
 
+
+
 public class QuizSystem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -188,7 +191,10 @@ public class QuizSystem {
                 System.out.print("Enter Password: ");
                 String inputPassword = sc.nextLine();
 
-                if (inputAdminId.equals(admin.getAdminId()) && inputUsername.equals(admin.getUsername()) && inputPassword.equals(admin.getPassword())) {
+                if (inputAdminId.equals(admin.getAdminId()) &&
+                        inputUsername.equals(admin.getUsername()) &&
+                        inputPassword.equals(admin.getPassword())) {
+
                     admin.login();
                     while (true) {
                         System.out.println("\n#Admin Panel");
@@ -206,7 +212,7 @@ public class QuizSystem {
                             sc.nextLine();
 
                             for (int i = 0; i < questionCount; i++) {
-                                System.out.print("Enter question text: ");
+                                System.out.print("Enter question text for " + (i + 1) + ": ");
                                 String text = sc.nextLine();
 
                                 List<String> options = new ArrayList<>();
@@ -215,12 +221,14 @@ public class QuizSystem {
                                 sc.nextLine();
 
                                 for (int j = 0; j < optCount; j++) {
-                                    System.out.print("Enter option: ");
+                                    System.out.print("Enter option " +(j+1)+": ");
                                     options.add(sc.nextLine());
                                 }
 
-                                System.out.print("Enter correct answer: ");
-                                String correctAnswer = sc.nextLine();
+                                System.out.print("Enter the number of the correct answer (1 to " + optCount + "): ");
+                                int correctIndex = sc.nextInt();
+                                sc.nextLine();
+                                String correctAnswer = options.get(correctIndex - 1);
 
                                 System.out.print("Enter points: ");
                                 int points = sc.nextInt();
@@ -229,6 +237,7 @@ public class QuizSystem {
                                 Question question = new Question(text, options, correctAnswer, points);
                                 admin.addQuestion(quiz, question);
                             }
+
                             quizzes.add(quiz);
                             System.out.println("Quiz created successfully.");
                         } else if (adminChoice == 2) {
