@@ -62,20 +62,20 @@ class Admin extends User {
         System.out.println("🗑 Quiz Deleted.");
     }
 
-    public void viewAllResults(List<QuizTaker> takers) {
-        for (QuizTaker taker : takers) {
+    public void viewAllResults(List<QuizParticipants> takers) {
+        for (QuizParticipants taker : takers) {
             for (Result result : taker.getResults()) {
-                System.out.println("QuizTaker: " + taker.getUsername() + " | ID: " + taker.getUserId() +
+                System.out.println("QuizParticipants: " + taker.getUsername() + " | ID: " + taker.getUserId() +
                         " | Quiz: " + result.quiz.title + " | Score: " + result.score);
             }
         }
     }
 }
 
-class QuizTaker extends User {
+class QuizParticipants extends User {
     private List<Result> results = new ArrayList<>();
 
-    public QuizTaker(String userId, String username, String password) {
+    public QuizParticipants(String userId, String username, String password) {
         super(userId, username, password);
     }
 
@@ -170,7 +170,7 @@ public class QuizSystem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Quiz> quizzes = new ArrayList<>();
-        List<QuizTaker> takers = new ArrayList<>();
+        List<QuizParticipants> takers = new ArrayList<>();
         Admin admin = new Admin("admin01", "admin", "admin123");
 
         while (true) {
@@ -270,7 +270,7 @@ public class QuizSystem {
                 System.out.print("Enter Password: ");
                 String password = sc.nextLine();
 
-                QuizTaker taker = new QuizTaker(userId, username, password);
+                QuizParticipants taker = new QuizParticipants(userId, username, password);
                 taker.login();
                 takers.add(taker);
 
@@ -314,3 +314,4 @@ public class QuizSystem {
         sc.close();
     }
 }
+
